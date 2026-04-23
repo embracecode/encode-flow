@@ -1,7 +1,29 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue'
 import AppEditorRenderer from '@/components/AppEditorRenderer/AppEditorRenderer.vue'
 import AppLeftPanel from '@/components/AppLeftPanel/AppLeftPanel.vue'
 import AppRightPanel from '@/components/AppRightPanel/AppRightPanel.vue'
+import { useAppEditorStore } from '@/stores/appEditor'
+
+const appEditorStore = useAppEditorStore()
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
+    event.preventDefault()
+    appEditorStore.undo()
+  } else if ((event.ctrlKey || event.metaKey) && event.key === 'y') {
+    event.preventDefault()
+    appEditorStore.redo()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>

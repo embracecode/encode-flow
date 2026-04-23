@@ -22,9 +22,11 @@ const { updateBlocks } = appEditorStore
 
 const applyDrag = <T extends any[]>(arr: T, dragResult: DropResult) => {
   const { removedIndex, addedIndex, payload } = dragResult
-
+  if ((removedIndex !== null && addedIndex !== null) && removedIndex === addedIndex) {
+    return
+  }
   const result = [...arr]
-
+  console.log('dragResult', dragResult, result)
   // 没做操作
   if (addedIndex === null) return result
 
@@ -38,10 +40,14 @@ const applyDrag = <T extends any[]>(arr: T, dragResult: DropResult) => {
 
   // 移动
   if (addedIndex !== null && removedIndex !== null) {
-    return arrayMove(result, removedIndex, addedIndex)
+    updateBlocks(arrayMove(result, removedIndex, addedIndex))
   }
+  updateBlocks(result)
+}
+// 处理drop事件移动的时候 addedIndex 和 removedIndex 有值且相等
 
-  return result
+const handleDrop = (dropResult: DropResult) => {
+  applyDrag(toRaw(blocks.value), dropResult)
 }
 
 // 需要保证 blocksMap 在 BlockRenderer 之前被注入，并且我们暂时使用的 Symbol 作为 key
@@ -55,7 +61,7 @@ const applyDrag = <T extends any[]>(arr: T, dragResult: DropResult) => {
     orientation="vertical"
     tag="div"
     class="renderer-dnd-container"
-    @drop="updateBlocks(applyDrag(toRaw(blocks), $event))"
+    @drop="handleDrop"
   >
     <smooth-dnd-draggable v-for="(block, i) in blocks" :key="block.id">
       <BlockRenderer :block="block" :i="i" />

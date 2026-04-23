@@ -8,7 +8,7 @@ import { useEnvStore } from '@/stores/debug'
 
 // import { useClickOutside } from '@/hooks/useClickOutside'
 
-defineProps<{
+const props =  defineProps<{
   block: BlockInfo
   i: number
 }>()
@@ -27,7 +27,12 @@ const envStore = useEnvStore()
 const appEditorStore = useAppEditorStore()
 
 const { currentBlockId, blocks } = storeToRefs(appEditorStore)
-const { selectBlock } = appEditorStore
+const { selectBlock, updateBlocks } = appEditorStore
+
+const handleDelete = () => {
+  const newBlocks = blocks.value.filter((_, index) => index !== props.i)
+  updateBlocks(newBlocks)
+}
 
 // 需要保证 blocksMap 在 BlockRenderer 之前被注入，并且我们暂时使用的 Symbol 作为 key
 // console.log(inject('blocksMap'))
@@ -50,7 +55,7 @@ const editable = inject('editable', true)
         <div class="block-toolbar-item handle">
           <drag />
         </div>
-        <div class="block-toolbar-item" @click="blocks.splice(i, 1)">
+        <div class="block-toolbar-item" @click="handleDelete">
           <delete />
         </div>
       </div>

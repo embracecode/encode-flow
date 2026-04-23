@@ -23,8 +23,10 @@ const content = defineInputBinds('content')
 
 watch([values], ([newValues]) => {
   console.log(
-    '🚀 ~ file: QuoteSetting.vue:26 ~ watch ~ { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } }:',
-    { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } }
+    values,
+    newValues,
+    { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } },
+    '-----------'
   )
   emit('change', { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } })
 })

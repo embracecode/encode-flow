@@ -69,6 +69,7 @@ watch(
   [innerValue, observerRef],
   ([v]) => {
     if (v && v in refs.value && observerRef.value) {
+      console.log('refs.value', v)
       const element = refs.value[v]
 
       if (!element || !element.parentElement) {
