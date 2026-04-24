@@ -18,7 +18,7 @@ const { values, validate, defineInputBinds } = useForm({
   }
 })
 const { fields, push } = useFieldArray('blocks')
-
+console.log('fields--------------', fields)
 const content = defineInputBinds('content')
 
 watch([values], ([newValues]) => {
