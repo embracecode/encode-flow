@@ -2,14 +2,13 @@
 import { useForm } from 'vee-validate'
 import { watch } from 'vue'
 
-import type { ButtonBlockInfo } from '@/types/block'
+import type { HeroTitleBlockInfo } from '@/types/block'
 
 const props = defineProps<{
-  blockInfo: ButtonBlockInfo
+  blockInfo: HeroTitleBlockInfo
 }>()
 
-console.log('🚀 ----------', props.blockInfo)
-const emit = defineEmits<{ (event: 'change', block: ButtonBlockInfo): void }>()
+const emit = defineEmits<{ (event: 'change', block: HeroTitleBlockInfo): void }>()
 
 const { values, defineInputBinds } = useForm({
   initialValues: {
@@ -25,16 +24,16 @@ watch([values], ([newValues]) => {
 </script>
 
 <template>
-  <div class="button-setting">
+  <div class="hero-title-setting">
     <div>
       {{ props.blockInfo.type }}
     </div>
-    <input class="content-input" v-bind="content" placeholder="请输入按钮文本" />
+    <input class="content-input" v-bind="content" />
   </div>
 </template>
 
 <style scoped>
-.button-setting {
+.hero-title-setting {
   display: flex;
   flex-direction: column;
   gap: 8px;

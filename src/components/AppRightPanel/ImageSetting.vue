@@ -2,22 +2,21 @@
 import { useForm } from 'vee-validate'
 import { watch } from 'vue'
 
-import type { ButtonBlockInfo } from '@/types/block'
+import type { ImageBlockInfo } from '@/types/block'
 
 const props = defineProps<{
-  blockInfo: ButtonBlockInfo
+  blockInfo: ImageBlockInfo
 }>()
 
-console.log('🚀 ----------', props.blockInfo)
-const emit = defineEmits<{ (event: 'change', block: ButtonBlockInfo): void }>()
+const emit = defineEmits<{ (event: 'change', block: ImageBlockInfo): void }>()
 
 const { values, defineInputBinds } = useForm({
   initialValues: {
-    content: props.blockInfo.props.content
+    url: props.blockInfo.props.url
   }
 })
 
-const content = defineInputBinds('content')
+const url = defineInputBinds('url')
 
 watch([values], ([newValues]) => {
   emit('change', { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } })
@@ -25,16 +24,16 @@ watch([values], ([newValues]) => {
 </script>
 
 <template>
-  <div class="button-setting">
+  <div class="image-setting">
     <div>
       {{ props.blockInfo.type }}
     </div>
-    <input class="content-input" v-bind="content" placeholder="请输入按钮文本" />
+    <input class="content-input" v-bind="url" placeholder="请输入图片 URL" />
   </div>
 </template>
 
 <style scoped>
-.button-setting {
+.image-setting {
   display: flex;
   flex-direction: column;
   gap: 8px;

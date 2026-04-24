@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useFieldArray, useForm } from 'vee-validate'
-import { watch } from 'vue'
-
+import { toRaw, watch, watchEffect } from 'vue'
 import type { QuoteBlockInfo } from '@/types/block'
 
 // 怎么传入 props，在这里如何定义？
@@ -18,7 +17,7 @@ const { values, validate, defineInputBinds } = useForm({
   }
 })
 const { fields, push } = useFieldArray('blocks')
-console.log('fields--------------', fields)
+console.log('fields--------------', fields, props.blockInfo)
 const content = defineInputBinds('content')
 
 watch([values], ([newValues]) => {
@@ -30,7 +29,6 @@ watch([values], ([newValues]) => {
   )
   emit('change', { ...props.blockInfo, props: { ...props.blockInfo.props, ...newValues } })
 })
-
 // const c = useField('content')
 </script>
 
@@ -48,7 +46,7 @@ watch([values], ([newValues]) => {
 
     <button class="add-button" @click="push(new Date().toLocaleTimeString())">添加</button>
 
-    <vue-json-pretty showIcon showLineNumber editable :data="blockInfo" />
+    <!-- <vue-json-pretty showIcon showLineNumber editable :data="blockInfo" /> -->
 
     <!-- 非受控 -->
     <!-- <input class="content-input" :defaultValue="value" @input="value = $event.target.value" /> -->

@@ -22,7 +22,6 @@ import VueJsonPretty from 'vue-json-pretty'
 const props = defineProps<{
   currentBlockInfo: any
 }>()
-
 const handleCopyText = () => {
   try {
     const blockJsonString = JSON.stringify(props.currentBlockInfo)

@@ -9,6 +9,12 @@ import type { BlockInfo } from '@/types/block'
 
 import ChartSetting from './ChartSetting.vue'
 import QuoteSetting from './QuoteSetting.vue'
+import NotesSetting from './NotesSetting.vue'
+import HeroTitleSetting from './HeroTitleSetting.vue'
+import ImageSetting from './ImageSetting.vue'
+import ButtonSetting from './ButtonSetting.vue'
+import FormSetting from './FormSetting.vue'
+import ViewSetting from './ViewSetting.vue'
 import SchemaExporter from './SchemaExporter.vue'
 
 const appEditorStore = useAppEditorStore()
@@ -33,6 +39,24 @@ const blockSetting = computed(() => {
     }
     case 'chart': {
       return ChartSetting
+    }
+    case 'notes': {
+      return NotesSetting
+    }
+    case 'heroTitle': {
+      return HeroTitleSetting
+    }
+    case 'image': {
+      return ImageSetting
+    }
+    case 'button': {
+      return ButtonSetting
+    }
+    case 'form': {
+      return FormSetting
+    }
+    case 'view': {
+      return ViewSetting
     }
     default:
       return ''

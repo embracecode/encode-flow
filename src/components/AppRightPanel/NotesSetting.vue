@@ -2,14 +2,13 @@
 import { useForm } from 'vee-validate'
 import { watch } from 'vue'
 
-import type { ButtonBlockInfo } from '@/types/block'
+import type { NotesBlockInfo } from '@/types/block'
 
 const props = defineProps<{
-  blockInfo: ButtonBlockInfo
+  blockInfo: NotesBlockInfo
 }>()
 
-console.log('🚀 ----------', props.blockInfo)
-const emit = defineEmits<{ (event: 'change', block: ButtonBlockInfo): void }>()
+const emit = defineEmits<{ (event: 'change', block: NotesBlockInfo): void }>()
 
 const { values, defineInputBinds } = useForm({
   initialValues: {
@@ -25,29 +24,30 @@ watch([values], ([newValues]) => {
 </script>
 
 <template>
-  <div class="button-setting">
+  <div class="notes-setting">
     <div>
       {{ props.blockInfo.type }}
     </div>
-    <input class="content-input" v-bind="content" placeholder="请输入按钮文本" />
+    <textarea class="content-textarea" v-bind="content" />
   </div>
 </template>
 
 <style scoped>
-.button-setting {
+.notes-setting {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.content-input {
+.content-textarea {
   width: 100%;
-  height: 32px;
+  height: 120px;
   margin-top: 8px;
-  padding: 0 8px;
+  padding: 8px;
   border: 1px solid var(--color-gray-300);
   border-radius: 8px;
   outline-style: none;
   color: var(--color-gray-800);
+  resize: vertical;
 }
 </style>

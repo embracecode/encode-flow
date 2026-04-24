@@ -33,7 +33,7 @@ const handleDelete = () => {
   const newBlocks = blocks.value.filter((_, index) => index !== props.i)
   updateBlocks(newBlocks)
 }
-
+console.log('props---------', props.block)
 // 需要保证 blocksMap 在 BlockRenderer 之前被注入，并且我们暂时使用的 Symbol 作为 key
 // console.log(inject('blocksMap'))
 // useClickOutside(blockWrapperRef)
